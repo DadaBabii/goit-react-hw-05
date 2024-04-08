@@ -1,0 +1,23 @@
+.nav {
+    margin-top: 15px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+}
+
+.link {
+    display: flex;
+    padding: 15px 20px;
+    border: 2px solid blue;
+    border-radius: 8px;
+    width: 200px;
+    justify-content: center;
+    color: blue;
+    background-color: transparent;
+}
+
+.link:active {
+    background-color: aqua;
+}
