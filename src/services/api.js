@@ -28,6 +28,26 @@ export const requestTrendFilms = async () => {
   return data;
 };
 
+export const requestFilmDetailsById = async (movieId) => {
+  const url = `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`;
+  const KEY = "af791a3763b186085b0b4847247fe248";
+
+  const options = {
+    headers: {
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZjc5MWEzNzYzYjE4NjA4NWIwYjQ4NDcyNDdmZTI0OCIsInN1YiI6IjY2MTNiODliYWM2MTdjMDE3ZGIxNGYxOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.j7hnSu8wYW6LUZf2fiw-N3kDCrByYvsLHFfdiSCOKfY",
+    },
+    params: {
+      key: KEY,
+      accept: "application/json",
+    },
+  };
+
+  const { data } = await axios.get(url, options);
+
+  return data;
+};
+
 // const url = 'https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1';
 
 // const options = {

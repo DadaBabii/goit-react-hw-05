@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { requestTrendFilms } from "../services/api";
+// import { requestFilmImage } from "../services/api";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const [movies, setMovies] = useState(null);
@@ -30,7 +32,9 @@ const HomePage = () => {
         movies.map((movie) => {
           return (
             <li key={movie.id}>
-              <h2>Title: {movie.title}</h2>
+              <Link to={`/movies/${movie.id}`}>
+                <p> {movie.title} </p>
+              </Link>
             </li>
           );
         })}
@@ -41,3 +45,9 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+// {`https://image.tmdb.org/t/p/w500${movie.poster_path}`
+// const imgUrl = movie.poster_path;
+{
+  /* <span>{requestFilmImage(imgUrl)}</span> */
+}
