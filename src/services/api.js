@@ -48,15 +48,62 @@ export const requestFilmDetailsById = async (movieId) => {
   return data;
 };
 
-// const url = 'https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1';
+export const requestFilmCreditsById = async (movieId) => {
+  const url = `https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`;
+  const KEY = "af791a3763b186085b0b4847247fe248";
 
-// const options = {
-//   headers: {
-// 	// Замість api_read_access_token вставте свій токен
-//     Authorization: 'Bearer api_read_access_token'
-//   }
-// };
+  const options = {
+    headers: {
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZjc5MWEzNzYzYjE4NjA4NWIwYjQ4NDcyNDdmZTI0OCIsInN1YiI6IjY2MTNiODliYWM2MTdjMDE3ZGIxNGYxOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.j7hnSu8wYW6LUZf2fiw-N3kDCrByYvsLHFfdiSCOKfY",
+    },
+    params: {
+      key: KEY,
+      accept: "application/json",
+    },
+  };
 
-// axios.get(url, options)
-//   .then(response => console.log(response))
-//   .catch(err => console.error(err));
+  const { data } = await axios.get(url, options);
+
+  return data;
+};
+
+export const requestFilmReviewsById = async (movieId) => {
+  const url = `https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US`;
+  const KEY = "af791a3763b186085b0b4847247fe248";
+
+  const options = {
+    headers: {
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZjc5MWEzNzYzYjE4NjA4NWIwYjQ4NDcyNDdmZTI0OCIsInN1YiI6IjY2MTNiODliYWM2MTdjMDE3ZGIxNGYxOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.j7hnSu8wYW6LUZf2fiw-N3kDCrByYvsLHFfdiSCOKfY",
+    },
+    params: {
+      key: KEY,
+      accept: "application/json",
+    },
+  };
+
+  const { data } = await axios.get(url, options);
+
+  return data;
+};
+
+export const requestFilmsByQuery = async (query = "", page = 1) => {
+  const url = `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=${page}`;
+  const KEY = "af791a3763b186085b0b4847247fe248";
+
+  const options = {
+    headers: {
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZjc5MWEzNzYzYjE4NjA4NWIwYjQ4NDcyNDdmZTI0OCIsInN1YiI6IjY2MTNiODliYWM2MTdjMDE3ZGIxNGYxOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.j7hnSu8wYW6LUZf2fiw-N3kDCrByYvsLHFfdiSCOKfY",
+    },
+    params: {
+      key: KEY,
+      accept: "application/json",
+    },
+  };
+
+  const { data } = await axios.get(url, options);
+
+  return data;
+};
