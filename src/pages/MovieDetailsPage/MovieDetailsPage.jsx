@@ -10,11 +10,9 @@ import MovieReviews from "../../components/MovieReviews";
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movieInfo, setMovieInfo] = useState(null);
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const location = useLocation();
-  console.log("mdl:", location);
   const backRef = useRef(location.state ?? "/movies");
 
   useEffect(() => {
@@ -50,13 +48,13 @@ const MovieDetailsPage = () => {
         </div>
       )}
       <div className={css.thumb}>
-        <Link to="movie-cast">Movie Cast</Link>
+        <Link to="cast">Movie Cast</Link>
         <Routes>
-          <Route path="movie-cast" element={<MovieCast movieId={movieId} />} />
+          <Route path="cast" element={<MovieCast movieId={movieId} />} />
         </Routes>
-        <Link to="movie-reviews"> Movie reviews</Link>
+        <Link to="reviews"> Movie reviews</Link>
         <Routes>
-          <Route path="movie-reviews" element={<MovieReviews />} />
+          <Route path="reviews" element={<MovieReviews />} />
         </Routes>
       </div>
 

@@ -1,12 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import css from "./MoviesPage.module.css";
 import { requestFilmsByQuery } from "../../services/api";
 import Loader from "../../components/Loader";
 import ErrorMessage from "../../components/ErrorMessage";
 
-import MovieList from "../../components/MovieList";
+import MovieList from "../../components/MovieList/MovieList";
 import { useSearchParams } from "react-router-dom";
-// import { useLocation } from "react-router-dom";
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
@@ -14,8 +13,6 @@ const MoviesPage = () => {
   const [error, setError] = useState(false);
   const [searchQuery, setSearchQuery] = useSearchParams();
   const query = searchQuery.get("query");
-  // const location = useLocation();
-  // console.log("location :", location);
 
   useEffect(() => {
     if (!query) return;
@@ -26,7 +23,6 @@ const MoviesPage = () => {
         setLoading(true);
 
         const data = await requestFilmsByQuery(query);
-        console.log(data.results);
 
         setMovies(data.results);
       } catch (error) {
@@ -74,16 +70,8 @@ const MoviesPage = () => {
           Search
         </button>
       </form>
-      <ul className={css.container}>
-        {Array.isArray(movies) &&
-          movies.map((movie) => {
-            return (
-              <li key={movie.id}>
-                <MovieList movie={movie} />
-              </li>
-            );
-          })}
-      </ul>
+
+      <MovieList movies={movies} />
 
       {loading && <Loader />}
       {error && <ErrorMessage />}

@@ -1,0 +1,9 @@
+.section {
+    display: block;
+    width: 1440px;
+    height: 50px;
+    background-color: transparent;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
