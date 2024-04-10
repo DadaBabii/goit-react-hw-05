@@ -1,33 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import css from "./MoviesPage.module.css";
 import { requestFilmsByQuery } from "../../services/api";
 import Loader from "../../components/Loader";
 import ErrorMessage from "../../components/ErrorMessage";
-import { Link } from "react-router-dom";
-import LoadMoreBtn from "../../components/LoadMoreBtn";
+
+import MovieList from "../../components/MovieList";
+import { useSearchParams } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [totalpages, setTtotalpages] = useState(0);
+  const [searchQuery, setSearchQuery] = useSearchParams();
+  const query = searchQuery.get("query");
+  // const location = useLocation();
+  // console.log("location :", location);
 
   useEffect(() => {
-    if (query.length === 0) return;
+    if (!query) return;
 
     async function fetchImages() {
       try {
         setError(false);
         setLoading(true);
 
-        const data = await requestFilmsByQuery(query, page);
+        const data = await requestFilmsByQuery(query);
         console.log(data.results);
 
-        setTtotalpages(data.total_pages);
-
-        setMovies((prevPage) => [...prevPage, ...data.results]);
+        setMovies(data.results);
       } catch (error) {
         setError(true);
       } finally {
@@ -35,16 +36,15 @@ const MoviesPage = () => {
       }
     }
     fetchImages();
-  }, [query, page]);
+  }, [query]);
 
   const onSearchImages = (inputValue) => {
     if (inputValue === query) {
-      setQuery(inputValue);
+      setSearchQuery({ query: inputValue });
       setMovies(movies);
     } else {
-      setPage(1);
       setMovies([]);
-      setQuery(inputValue);
+      setSearchQuery({ query: inputValue });
     }
   };
 
@@ -57,11 +57,6 @@ const MoviesPage = () => {
       return;
     }
     onSearchImages(searchInput);
-  };
-
-  const handleMore = () => {
-    setPage((page) => page + 1);
-    // console.log(data.results);
   };
 
   return (
@@ -84,14 +79,12 @@ const MoviesPage = () => {
           movies.map((movie) => {
             return (
               <li key={movie.id}>
-                <Link to={`/movies/${movie.id}`}>
-                  <p> {movie.title} </p>
-                </Link>
+                <MovieList movie={movie} />
               </li>
             );
           })}
       </ul>
-      {page < totalpages && <LoadMoreBtn onClick={handleMore} />}
+
       {loading && <Loader />}
       {error && <ErrorMessage />}
     </div>

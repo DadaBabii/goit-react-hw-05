@@ -4,6 +4,7 @@ import { requestTrendFilms } from "../services/api";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import { Link } from "react-router-dom";
+import MovieList from "../components/MovieList";
 
 const HomePage = () => {
   const [movies, setMovies] = useState(null);
@@ -32,9 +33,7 @@ const HomePage = () => {
         movies.map((movie) => {
           return (
             <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>
-                <p> {movie.title} </p>
-              </Link>
+              <MovieList movie={movie} />
             </li>
           );
         })}

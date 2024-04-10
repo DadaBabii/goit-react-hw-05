@@ -88,8 +88,8 @@ export const requestFilmReviewsById = async (movieId) => {
   return data;
 };
 
-export const requestFilmsByQuery = async (query = "", page = 1) => {
-  const url = `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=${page}`;
+export const requestFilmsByQuery = async (query = "") => {
+  const url = `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`;
   const KEY = "af791a3763b186085b0b4847247fe248";
 
   const options = {

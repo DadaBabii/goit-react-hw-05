@@ -1,5 +1,5 @@
-import { Routes, Route, Link, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Routes, Route, Link, useParams, useLocation } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import Loader from "../../components/Loader";
 import ErrorMessage from "../../components/ErrorMessage";
 import { requestFilmDetailsById } from "../../services/api";
@@ -13,6 +13,9 @@ const MovieDetailsPage = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const location = useLocation();
+  console.log("mdl:", location);
+  const backRef = useRef(location.state ?? "/movies");
 
   useEffect(() => {
     async function fetchFilm() {
@@ -32,6 +35,7 @@ const MovieDetailsPage = () => {
 
   return (
     <div>
+      <Link to={backRef.current}> Go back</Link>
       {movieInfo !== null && (
         <div>
           <h2> Title : {movieInfo.title}</h2>
